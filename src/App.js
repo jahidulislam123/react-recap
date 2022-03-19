@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
   return (
@@ -9,10 +9,31 @@ function App() {
       <Districts name="mahidul islam" special="maramari"  ></Districts>
       <Districts name="rakibul islam" special="santovai "  ></Districts>
       <Districts name="ramima islam" special="moynamoti "  ></Districts>
-      
+      <Loadpost></Loadpost>
       
     </div>
   );
+}
+
+
+function Loadpost(){
+  const [posts,setPost]=useState([]);
+  useEffect(()=>{
+    fetch('https://jsonplaceholder.typicode.com/posts')
+    .then(res=>res.json())
+    .then(data=>setPost(data));
+  },[])
+
+  return(
+    <div>
+      <h3>post length:{posts.length}</h3>
+      {
+        posts.map(post=> <p>{post.title}</p> )
+      }
+
+    </div>
+
+  )
 }
 
 const districstyle={
